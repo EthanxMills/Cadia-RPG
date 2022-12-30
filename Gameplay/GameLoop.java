@@ -24,7 +24,12 @@ public class GameLoop {
         enemies.add(goblin);
         
         // determine move order
-        ArrayList<Character> moveOrder = moveOrder(playerAccount.partyMembers, enemies);
+        ArrayList<Character> moveOrder = moveOrder(party, enemies);
+        //print move order for verification
+        System.out.println("Move Order:");
+        for (Character entity : moveOrder){
+            System.out.println(entity.name);
+        }
         int i = 0;
 
         while(true){
@@ -51,7 +56,7 @@ public class GameLoop {
             }
             
             i++;
-            if(i == moveOrder.size()){ i = 0; } //loop the turn order for drawn out battles
+            if(i >= moveOrder.size()){ i = 0; } //loop the turn order for drawn out battles
         }
         System.out.println("PLACE HOLDER FOR EXP AND GOLD GAIN");
     }
