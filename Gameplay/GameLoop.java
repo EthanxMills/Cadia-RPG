@@ -1,11 +1,12 @@
 package Gameplay;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Classes.Character;
 import Classes.Goblin;
 
 public class GameLoop {
-    
+    Scanner scan = new Scanner(System.in);
     Account playerAccount;
     ArrayList<Character> party;
     
@@ -30,7 +31,7 @@ public class GameLoop {
             //see if the next entity in the move order is an ally or enemy
             
             if(party.contains(moveOrder.get(i))){
-                allyTurn(moveOrder.get(i), enemies.get(i));
+                allyTurn(moveOrder.get(i), enemies.get(0));
             } else {
                 enemyTurn(moveOrder.get(i));
             }
@@ -38,10 +39,14 @@ public class GameLoop {
             //Make it so that trading blows is actually a loss for the player
             if(isDead(playerAccount.partyMembers.get(0))){
                 System.out.println("You have perished!");
+                party.remove(moveOrder.get(i));
+                moveOrder.remove(moveOrder.get(i));
                 System.exit(0);
             }
             if(isDead(goblin)){
                 System.out.println("You have defeated the goblin!");
+                enemies.remove(moveOrder.get(i));
+                moveOrder.remove(moveOrder.get(i));
                 break;
             }
             
@@ -70,7 +75,7 @@ public class GameLoop {
 
     public void allyTurn(Character ally, Character enemy){
         options();
-            int choice = Main.scan.nextInt();
+            int choice = scan.nextInt();
             if (choice == 1) {
                 System.out.println("You attack the goblin!");
                 //attack goblin
